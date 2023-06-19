@@ -103,30 +103,31 @@ def play(word):
     print("Let's play Hangman!")
     print(display_hangman(tries))
     print(word_completion)
-    print("Enter a letter")
     while not guessed:
+        print("Enter a letter")
         guess = check_letter().upper()
-        guessed_letters.append(guess)
         if guess in guessed_letters:
             print("You have already guessed this letter")
             continue
-        if guess in word:
+        elif guess in word:
             print("Hooray! There is such a letter in this word")
+            guessed_letters.append(guess)
             for i in range(len(word)):
                 if word[i] == guess:
-                    word_completion[i] = guess
-            print(display_hangman(tries))
-        if '_' not in word_completion:
-            print("Congratulations! You have guessed the word")
-            guessed_words.append(word)
-            guessed = True
+                    word_completion = word_completion[:i] + guess + word_completion[i + 1:]
+            print(word_completion)
+            if '_' not in word_completion:
+                print("Congratulations! You have guessed the word")
+                guessed_words.append(word)
+                guessed = True
         else:
             print("Ooops! We don't have such a letter in this word")
+            guessed_letters.append(guess)
             tries -= 1
             print(display_hangman(tries))
             if tries == 0:
                 print("Oh no! You lose!")
-                print('We guessed the word "', word, '"')
+                print(f'We guessed the word {word}')
                 break
 
 
