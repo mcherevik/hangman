@@ -131,4 +131,23 @@ def play(word):
                 break
 
 
-play(get_word())
+def check_answer():
+    while True:
+        print('Do you want to play once more? Y/N')
+        answer = input().upper()
+        if answer == 'Y':
+            return True
+        elif answer == 'N':
+            print('It was nice to play with you! Bye!')
+            return False
+        else:
+            print("We don't understand your answer. Please try again")
+            continue
+
+
+while True:
+    play(get_word())
+    if check_answer():
+        continue
+    else:
+        break
